@@ -1,0 +1,50 @@
+.books__container {
+  /* width: 1200px; */
+  /* max-width: 95%; */
+  /* margin: 0 auto; */
+  padding: 1rem;
+}
+
+.books__title {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.books__form {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.books__input {
+  padding: .5rem;
+  width: 250px;
+  max-width: 90%;
+  border-radius: .25rem;
+  border: 1px solid #ccc;
+}
+
+.books__btn {
+  padding: .5rem;
+  margin-left: .5rem;
+  cursor: pointer;
+  color: #fff;
+  background-color: #9100f8;
+  border: 1px solid #9100f8;
+  border-radius: .25rem;
+  transition: all .3s ease-in-out;
+}
+
+.books__btn:hover {
+  background-color: #7d02d6;
+}
+
+.books__sort {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.books__wrapper {
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: repeat(3, 1fr);
+}
