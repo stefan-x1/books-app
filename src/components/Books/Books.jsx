@@ -1,23 +1,25 @@
-import React, { useState } from "react";
-
-import Book from "../Book/Book";
+import React, { useEffect, useState } from "react";
 
 import books from "../../data/listofbooks.json";
+import Book from "../Book/Book";
 import "./Books.css";
 
 const Books = () => {
   const [filteredBooks, setFilteredBooks] = useState(books);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("author");
+  const [sortBy, setSortBy] = useState("");
   
   const handleSearch = (e) => {
     e.preventDefault();
 
     const filterBooks = books.filter(
       (book) =>
-        book.author.toLocaleLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.title.toLocaleLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.genre.toLocaleLowerCase().includes(searchQuery.toLowerCase())
+        book.author.toLocaleLowerCase().startsWith(searchQuery.toLowerCase()) ||
+        book.title.toLocaleLowerCase().startsWith(searchQuery.toLowerCase()) ||
+        book.genre.toLocaleLowerCase().startsWith(searchQuery.toLowerCase()) ||
+        book.author.toLocaleLowerCase().includes(` ${searchQuery.toLowerCase()}`) ||
+        book.title.toLocaleLowerCase().includes(` ${searchQuery.toLowerCase()}`) ||
+        book.genre.toLocaleLowerCase().includes(` ${searchQuery.toLowerCase()}`)
     );
 
     filterBooks.sort((a, b) => {
@@ -40,6 +42,17 @@ const Books = () => {
     setFilteredBooks(sortedBooks);
   };
 
+  useEffect(() => {
+    const sortedBooksByAuthor = books.sort((a, b) => {
+      if (a.author < b.author) return -1;
+      if (a.author > b.author) return 1;
+      return 0;
+    });
+
+    setFilteredBooks(sortedBooksByAuthor);
+    setSortBy('title')
+  }, [])
+
   return (
     <div className="books__container">
       <h2 className="books__title">Books</h2>
@@ -58,7 +71,6 @@ const Books = () => {
         <label htmlFor="sort">Sort books: </label>
         <select
           id="sort"
-          // ref={sortBy}
           value={sortBy}
           onChange={(e) => sortBooks(e.target.value)}
         >
